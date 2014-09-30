@@ -29,7 +29,7 @@ angular.module("sportsStoreAdmin")
 		$scope.getScreen = function () {
 			return $scope.current == "Products" ? "/views/adminProducts.html" : "/views/adminOrders.html";
 		};
-	});
+	})
 	.controller("ordersCtrl", function ($scope, $http, ordersUrl) {
 		$http.get(ordersUrl, {withCredentials : true})
 			.success(function (data) {
