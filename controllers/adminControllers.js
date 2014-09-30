@@ -4,7 +4,7 @@ angular.module("sportsStoreAdmin")
 		
 		$scope.authenticate = function (user, pass) {
 			$http.post(authUrl, {
-				username: user,
+				email: user,
 				password: pass
 				}, {
 					withCredentials: true
@@ -16,4 +16,16 @@ angular.module("sportsStoreAdmin")
 					$scope.authenticationError = error;
 				});
 		}
+	})
+	.controller("mainCtrl", function($scope) {
+		$scope.screens = ["Products", "Orders"];
+		$scope.current = $scope.screens[0];
+		
+		$scope.setScreen = function (index) {
+			$scope.current = $scope.screens[index];
+		};
+		
+		$scope.getScreen = function () {
+			return $scope.current == "Products" ? "/views/adminProducts.html" : "/views/adminOrders.html";
+		};
 	});
