@@ -46,7 +46,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr ng-repeat="p in products | skip:2 | limitTo: 5">
+						<tr ng-repeat="p in products | take:2:5">
 							<td>{{p.name}}</td>
 							<td>{{p.category}}</td>
 							<td>{{p.expiry}}</td>
