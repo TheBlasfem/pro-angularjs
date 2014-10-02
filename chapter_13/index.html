@@ -7,15 +7,23 @@
 		<link href="bootstrap-theme.min.css" rel="stylesheet" />
 		<script>
 			angular.module("exampleApp", [])
-				.controller("simpleCtrl", function ($scope, $rootScope) {
+				.service("ZipCodes", function($rootScope) {
+					return {
+						setZipCode: function(type, zip) {
+							this[type] = zip;
+							$rootScope.$broadcast("zipCodeUpdated", {
+								type: type, zipCode: zip
+							});
+						}
+					}
+				})
+				.controller("simpleCtrl", function ($scope, ZipCodes) {
 					$scope.$on("zipCodeUpdated", function (event, args) {
 						$scope[args.type] = args.zipCode;
 					});
 					
 					$scope.setAddress = function (type, zip) {
-						$rootScope.$broadcast("zipCodeUpdated", {
-							type: type, zipCode: zip
-						});
+						ZipCodes.setZipCode(type, zip);
 						console.log("Type: " + type + " " + zip);
 					}
 					
