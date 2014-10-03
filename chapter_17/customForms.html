@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html ng-app="exampleApp">
+	<head>
+	<title>CustomForms</title>
+	<script src="angular.min.js"></script>
+	<link href="bootstrap.min.css" rel="stylesheet" />
+	<link href="bootstrap-theme.min.css" rel="stylesheet" />
+	<script type="text/ng-template" id="triTemplate">
+		<div class="well">
+			<div class="btn-group">
+				<button class="btn btn-default">Yes</button>
+				<button class="btn btn-default">No</button>
+				<button class="btn btn-default">Not Sure</button>
+			</div>
+		</div>
+	</script>
+	<script>
+		angular.module("exampleApp", [])
+			.controller("defaultCtrl", function ($scope) {
+				$scope.dataValue = "Not Sure";
+			})
+			.directive("triButton", function () {
+				return {
+					restrict: "E",
+					replace: true,
+					require: "ngModel",
+					template: document.querySelector("#triTemplate").outerText,
+					link: function (scope, element, attrs, ctrl) {
+						var setSelected = function (value) {
+							var buttons = element.find("button");
+							buttons.removeClass("btn-primary");
+							for (var i = 0; i < buttons.length; i++) {
+								if (buttons.eq(i).text() == value) {
+									buttons.eq(i).addClass("btn-primary");
+								}
+							}
+						}
+						//handle changes in ng-model with $render
+						ctrl.$render = function () {
+							//get the value of ng-model with $viewValue
+							setSelected(ctrl.$viewValue || "Not Sure");
+						}
+					}
+				}
+			});
+	</script>
+	</head>
+	<body ng-controller="defaultCtrl">
+		<div><tri-button ng-model="dataValue" /></div>
+		<div class="well">
+			Value:
+			<select ng-model="dataValue">
+				<option>Yes</option>
+				<option>No</option>
+				<option>Not Sure</option>
+			</select>
+		</div>
+	</body>
+</html>
