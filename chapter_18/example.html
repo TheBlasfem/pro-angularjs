@@ -3,9 +3,9 @@
 	<head>
 		<title>Services and Modules</title>
 		<script src="angular.min.js"></script>
+		<script src="directives.js"></script>
 		<link href="bootstrap.min.css" rel="stylesheet" />
 		<link href="bootstrap-theme.min.css" rel="stylesheet" />
-		<script src="directives.js"></script>
 		<script>
 			angular.module("exampleApp", ["customDirectives"])
 				.controller("defaultCtrl", function ($scope) {
@@ -13,25 +13,9 @@
 						cities: ["London", "New York", "Paris"],
 						totalClicks: 0
 					};
-					
 					$scope.$watch('data.totalClicks', function (newVal) {
 						console.log("Total click count: " + newVal);
 					});
-				})
-				.directive("triButton", function () {
-					return {
-						scope: { 
-							counter: "=counter" 
-						},
-						link: function (scope, element, attrs) {
-							element.on("click", function (event) {
-								console.log("Button click: " + event.target.innerText);
-								scope.$apply(function () {
-									scope.counter++;
-								});
-							});
-						}
-					}
 				});
 		</script>
 	</head>
