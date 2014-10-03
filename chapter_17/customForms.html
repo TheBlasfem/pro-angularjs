@@ -26,6 +26,9 @@
 					require: "ngModel",
 					template: document.querySelector("#triTemplate").outerText,
 					link: function (scope, element, attrs, ctrl) {
+						ctrl.$formatters.push(function (value) {
+							return value == "Huh?" ? "Not Sure" : value;
+						});
 						element.on("click", function (event) {
 							setSelected(event.target.innerText);
 							scope.$apply(function () {
@@ -59,6 +62,7 @@
 				<option>Yes</option>
 				<option>No</option>
 				<option>Not Sure</option>
+				<option>Huh?</option>
 			</select>
 		</div>
 	</body>
