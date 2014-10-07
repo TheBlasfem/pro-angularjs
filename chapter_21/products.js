@@ -21,8 +21,10 @@ angular.module("exampleApp", [])
 		}
 		
 		$scope.createProduct = function (product) {
-			$scope.products.push(product);
-			$scope.displayMode = "list";
+			$http.post(baseUrl, product).success(function(newProduct){
+				$scope.products.push(newProduct);
+				$scope.displayMode = "list";
+			});
 		}
 
 		$scope.updateProduct = function (product) {
