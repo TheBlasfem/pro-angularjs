@@ -25,6 +25,18 @@
 							}
 						}
 					})
+				.directive("promiseObserver", function() {
+					return {
+						require: "^promiseWorker",
+						link: function (scope, element, attrs, ctrl) {
+							ctrl.promise.then(function (result) {
+								element.text(result);
+							}, function (reason) {
+								element.text("Fail (" + reason + ")");
+							});
+						}
+					}
+				})
 				.controller("defaultCtrl", function ($scope) {
 				});
 		</script>
@@ -34,7 +46,7 @@
 			<button class="btn btn-primary">Heads</button>
 			<button class="btn btn-primary">Tails</button>
 			<button class="btn btn-primary">Abort</button>
-			Outcome: <span></span>
+			Outcome: <span promise-observer></span>
 		</div>
 	</body>
 </html>
