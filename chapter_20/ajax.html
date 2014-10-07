@@ -7,13 +7,24 @@
 		<link href="bootstrap-theme.min.css" rel="stylesheet" />
 		<script>
 			angular.module("exampleApp", [])
+				.config(function ($httpProvider) {
+					$httpProvider.interceptors.push(function () {
+						return {
+							request: function (config) {
+								config.url = "productData.json";
+								return config;
+							},
+							response: function (response) {
+								console.log("Data Count: " + response.data.length);
+								return response;
+							}
+						}
+					});
+				})
 				.controller("defaultCtrl", function ($scope,$http) {
 					$scope.loadData = function () {
-						$http.get("productData.json").then(function(response){
-							console.log("Status: " + response.status);
-							console.log("Type: " + response.headers("content-type"));
-							console.log("Length: " + response.headers("content-length"));
-							$scope.products = response.data;
+						$http.get("doesnotexit.json").success(function (data) {
+							$scope.products = data;
 						});
 					}
 				});
