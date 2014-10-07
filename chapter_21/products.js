@@ -1,5 +1,5 @@
 angular.module("exampleApp", [])
-	.constant("baseUrl", "http://localhost:5500/products")
+	.constant("baseUrl", "http://localhost:5500/products/")
 	.controller("defaultCtrl", function ($scope, $http, baseUrl) {
 		
 		$scope.displayMode = "list";
@@ -12,7 +12,12 @@ angular.module("exampleApp", [])
 		}
 
 		$scope.deleteProduct = function (product) {
-			$scope.products.splice($scope.products.indexOf(product), 1);
+			$http({
+				method: "DELETE",
+				url: baseUrl + product.id
+			}).success(function () {
+				$scope.products.splice($scope.products.indexOf(product), 1);
+			});
 		}
 		
 		$scope.createProduct = function (product) {
