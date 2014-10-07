@@ -1,4 +1,4 @@
-angular.module("exampleApp", [])
+angular.module("exampleApp", ["increment"])
 	.constant("baseUrl", "http://localhost:5500/products/")
 	.controller("defaultCtrl", function ($scope, $http, baseUrl) {
 		
