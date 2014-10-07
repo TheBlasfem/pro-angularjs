@@ -15,6 +15,11 @@
 							$exceptionHandler(ex.message, "Button Click");
 						}
 					}
+				})
+				.factory("$exceptionHandler", function ($log) {
+					return function (exception, cause) {
+						$log.error("Message: " + exception.message + " (Cause: " + cause + ")");
+					}
 				});
 		</script>
 	</head>
