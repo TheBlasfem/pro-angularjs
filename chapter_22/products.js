@@ -7,33 +7,21 @@ angular.module("exampleApp", ["increment", "ngResource", "ngRoute"])
 			templateUrl: "/tableView.html"
 		});
 		$routeProvider.when("/edit/:id", {
-			templateUrl: "/editorView.html"
+			templateUrl: "/editorView.html",
+			controller: "editCtrl"
 		});
 		$routeProvider.when("/edit/:id/:data*", {
 			templateUrl: "/editorView.html"
 		});
 		$routeProvider.when("/create", {
-			templateUrl: "/editorView.html"
+			templateUrl: "/editorView.html",
+			controller: "editCtrl"
 		});
 		$routeProvider.otherwise({
 			templateUrl: "/tableView.html"
 		});
 	})
-	.controller("defaultCtrl", function ($scope, $http, $resource, $location, $route, $routeParams, baseUrl) {
-		$scope.currentProduct = null;
-
-		$scope.$on("$routeChangeSuccess", function () {
-			if ($location.path().indexOf("/edit/") == 0) {
-				var id = $routeParams["id"];
-				for (var i = 0; i < $scope.products.length; i++) {
-					if ($scope.products[i].id == id) {
-						$scope.currentProduct = $scope.products[i];
-						break;
-					}
-				}
-			}
-		});
-
+	.controller("defaultCtrl", function ($scope, $http, $resource, $location, baseUrl) {
 		$scope.productsResource = $resource(baseUrl + ":id", { id: "@id" },
 									{ create: { method: "POST" }, save: { method: "PUT" }});
 		
@@ -54,6 +42,21 @@ angular.module("exampleApp", ["increment", "ngResource", "ngRoute"])
 			});
 		}
 		
+		$scope.listProducts();
+	})
+	.controller("editCtrl", function($scope, $routeParams, $location){
+		$scope.currentProduct = null;
+
+		if ($location.path().indexOf("/edit/") == 0) {
+			var id = $routeParams["id"];
+			for (var i = 0; i < $scope.products.length; i++) {
+				if ($scope.products[i].id == id) {
+					$scope.currentProduct = $scope.products[i];
+					break;
+				}
+			}
+		}
+
 		$scope.updateProduct = function (product) {
 			product.$save();
 			$location.path("/list");
@@ -75,6 +78,4 @@ angular.module("exampleApp", ["increment", "ngResource", "ngRoute"])
 			$scope.currentProduct = {};
 			$location.path("/list");
 		}
-
-		$scope.listProducts();
 	});
