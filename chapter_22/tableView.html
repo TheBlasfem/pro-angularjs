@@ -17,9 +17,7 @@
 				<button class="btn btn-xs btn-primary" ng-click="deleteProduct(item)">
 					Delete
 				</button>
-				<button class="btn btn-xs btn-primary" ng-click="editProduct(item)">
-					Edit
-				</button>
+				<a href="/edit/{{item.id}}" class="btn btn-xs btn-primary">Edit</a>
 				<increment item="item" property-name="price" restful="true" method-name="$save" />
 				</td>
 			</tr>
