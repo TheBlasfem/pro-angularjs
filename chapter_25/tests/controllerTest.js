@@ -1,6 +1,6 @@
 describe("Controller Test", function () {
 
-	var mockScope, controller, backend, mockInterval, mockTimeout;
+	var mockScope, controller, backend, mockInterval, mockTimeout, mockLog;
 
 	//load modules from angular app
 	beforeEach(angular.mock.module("exampleApp"));
@@ -15,18 +15,20 @@ describe("Controller Test", function () {
 	}));
 
 	//inject services that my tests needs
-	beforeEach(angular.mock.inject(function ($controller, $rootScope, $http, $interval, $timeout) {
+	beforeEach(angular.mock.inject(function ($controller, $rootScope, $http, $interval, $timeout, $log) {
 		//create a new scope
 		mockScope = $rootScope.$new();
 		mockInterval = $interval;
 		mockTimeout = $timeout;
+		mockLog = $log;
 
 		//instance defaultCtrl and put all services from the app controller
 		$controller("defaultCtrl", {
 			$scope: mockScope,
 			$http: $http,
 			$interval: mockInterval,
-			$timeout: mockTimeout
+			$timeout: mockTimeout,
+			$log: mockLog
 		});
 
 		//send responses from $httpBackend service
@@ -69,4 +71,8 @@ describe("Controller Test", function () {
 		mockTimeout.flush(5000);
 		expect(mockScope.timerCounter).toEqual(1);
 	});
+
+	it("Writes log messages", function(){
+		expect(mockLog.log.logs.length).toEqual(1);
+	})
 });
