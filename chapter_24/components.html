@@ -19,11 +19,16 @@
 					}
 					$scope.handleClick = function () {
 						var deps = $injector.annotate(logClick);
+						var args = [];
 						for (var i = 0; i < deps.length; i++) {
 							if ($injector.has(deps[i])) {
-								console.log("Dependency: " + deps[i]);
+								args.push($injector.get(deps[i]));
+							} else if (deps[i] == "message") {
+								args.push("Button Clicked");
 							}
 						}
+						//other way to run a function, sending all variables in an array
+						logClick.apply(null, args);
 					};
 				});
 		</script>
