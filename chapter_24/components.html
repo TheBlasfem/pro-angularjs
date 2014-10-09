@@ -7,7 +7,7 @@
 		<link href="bootstrap-theme.min.css" rel="stylesheet" />
 		<script>
 			angular.module("exampleApp", [])
-				.controller("defaultCtrl", function ($scope, $injector) {
+				.controller("defaultCtrl", function ($scope, $rootElement) {
 					var counter = 0;
 					var logClick = function ($log, $exceptionHandler, message) {
 						if (counter == 0) {
@@ -19,7 +19,7 @@
 					}
 					$scope.handleClick = function () {
 						var localVars = { message: "Button Clicked" };
-						$injector.invoke(logClick, null, localVars);
+						$rootElement.injector().invoke(logClick, null, localVars);
 					};
 				});
 		</script>
