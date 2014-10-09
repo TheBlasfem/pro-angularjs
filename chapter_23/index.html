@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html ng-app="exampleApp">
+	<head>
+		<title>Products</title>
+		<script src="angular.min.js"></script>
+		<script src="angular-resource.min.js"></script>
+		<script src="angular-route.min.js"></script>
+		<script src="angular-animate.min.js"></script>
+		<link href="bootstrap.min.css" rel="stylesheet" />
+		<link href="bootstrap-theme.min.css" rel="stylesheet" />
+		<script src="products.js"></script>
+		<script src="increment.js"></script>
+		<style type="text/css">
+			.ngFade.ng-enter { transition: 0.1s linear all; opacity: 0; }
+			.ngFade.ng-enter-active { opacity: 1; }
+		</style>
+	</head>
+	<body ng-controller="defaultCtrl">
+		<div class="panel panel-primary">
+			<h3 class="panel-heading">Products</h3>
+			<div ng-view class="ngFade"></div>
+		</div>
+	</body>
+</html>
