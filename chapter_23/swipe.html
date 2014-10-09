@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html ng-app="exampleApp">
+	<head>
+		<title>Swipe Events</title>
+		<script src="angular.min.js"></script>
+		<script src="angular-touch.min.js"></script>
+		<link href="bootstrap.min.css" rel="stylesheet" />
+		<link href="bootstrap-theme.min.css" rel="stylesheet" />
+		<script>
+			angular.module("exampleApp", ["ngTouch"])
+				.controller("defaultCtrl", function ($scope, $element) {
+					$scope.swipeType = "<None>";
+					
+					$scope.handleSwipe = function(direction) {
+						$scope.swipeType = direction;
+					}
+				});
+		</script>
+	</head>
+	<body ng-controller="defaultCtrl">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="well" ng-swipe-right="handleSwipe('left-to-right')" ng-swipe-left="handleSwipe('right-to-left')">
+					<h4>Swipe Here</h4>
+				</div>
+				<div>Swipe was: {{swipeType}}</div>
+			</div>
+		</div>
+	</body>
+</html>
