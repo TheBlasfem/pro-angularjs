@@ -20,7 +20,9 @@
 					$scope.handleClick = function () {
 						var deps = $injector.annotate(logClick);
 						for (var i = 0; i < deps.length; i++) {
-							console.log("Dependency: " + deps[i]);
+							if ($injector.has(deps[i])) {
+								console.log("Dependency: " + deps[i]);
+							}
 						}
 					};
 				});
